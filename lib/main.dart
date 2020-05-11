@@ -1,10 +1,20 @@
 import 'package:atm/screens/dashboard.dart';
 import 'package:atm/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'model/login_model.dart';
-
-void main()=>runApp(MyApp());
+bool _isLoggedIn;
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  int id = preferences.getInt("userId");
+  if(id != null){
+    _isLoggedIn = true;
+  }else{
+    _isLoggedIn = false;
+  }
+  runApp(MyApp());
+}
 
 
 class MyApp extends StatefulWidget {
@@ -13,18 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  static bool _isLoggedIn;
-
-  void checkLogin()async{
-    _isLoggedIn = await LoginModel.instance.checkIfLoggedIn();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkLogin();
-  }
 
   @override
   Widget build(BuildContext context) {

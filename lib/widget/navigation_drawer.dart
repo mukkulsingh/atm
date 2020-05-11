@@ -44,7 +44,26 @@ class NavigationDrawer extends StatelessWidget {
           ListTile(
             title: Text("Logout"),
             onTap: () async {
-              if (await LogoutModel.instance.logout()) {
+              showDialog(context: context,builder: (_){
+                return SimpleDialog(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Logging out..."),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              });
+              if(await LogoutModel.instance.logout()) {
+                Navigator.of(context,rootNavigator: true).pop();
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {
                   return Login();
