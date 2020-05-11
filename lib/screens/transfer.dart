@@ -34,7 +34,7 @@ class _TransferState extends State<Transfer> {
     super.initState();
     _isLoading = false;
     _depositController = new TextEditingController();
-    _beneficiaryNameController = new TextEditqingController();
+    _beneficiaryNameController = new TextEditingController();
     _accountController = new TextEditingController();
     _isPageLoading = true;
     getBalance();
